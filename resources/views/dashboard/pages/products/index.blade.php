@@ -1,12 +1,12 @@
 
 @extends('layout.dashboard')
-@section('title','Categories')
+@section('title','Product List')
 @section('breadcrumb')
-<li class="breadcrumb-item"><a href="{{ route('dashboard.categories.index') }}">Categories</a></li>
+<li class="breadcrumb-item"><a href="{{ route('dashboard.products.index') }}">Products</a></li>
 @endsection
 @section('content')
 <x-flash-message></x-flash-message>
-<a href="{{ route('dashboard.categories.create') }}" class="btn-primary">create category</a>
+<a href="{{ route('dashboard.products.create') }}" class="btn-primary">create product</a>
     
 <form action="{{ URL::current() }}" method="get" class="row q-3 mt-3 mb-3">
     <div class="col-md-4">
@@ -23,7 +23,7 @@
     <button 
     type="button" 
     class="btn btn-secondary mx-2" 
-    onclick="location.href='{{ route('dashboard.categories.index') }}'"
+    onclick="location.href='{{ route('dashboard.products.index') }}'"
 >
     Reset
 </button>
@@ -34,25 +34,31 @@
         <thead>
             <tr>
                 <th>ID</th>
+                
                 <th>Name</th>
-                <th>Products Count</th>
+                <th>Users Count</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Store</th>
                 <th>Status</th>
                 <th>Description</th>
                 <th colspan="2">Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($categories as $item)
+            @foreach ($products as $item)
                 <tr>
                     <td>{{ $item->id }}</td>
-                    
                     <td>{{ $item->name }}</td>
-                    <td>{{ $item->products_count }}</td>
+                    <td>{{ $item->users_count}}</td>
+                    <td>{{ $item->price }}</td>
+                    <td>{{ $item->category->name ?? 'N/A' }}</td>
+                    <td>{{ $item->store->name ?? 'N/A' }}</td>
                     <td>{{ $item->status }}</td>
                     <td>{{ $item->description }}</td>
-                    <td><a href="{{ route('dashboard.categories.edit',$item->id) }}" class="btn-primary">Edit</a></td>
+                    <td><a href="{{ route('dashboard.products.edit',$item->id) }}" class="btn-primary">Edit</a></td>
                     <td>
-                        <form action="{{ route('dashboard.categories.destroy',$item->id) }}" method="post">
+                        <form action="{{ route('dashboard.products.destroy',$item->id) }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn-primary">Delete</button>
@@ -62,7 +68,7 @@
             @endforeach
         </tbody>
     </table>
-    {{ $categories->appends(request()->query())->links() }}
+    {{ $products->appends(request()->query())->links() }}
     @endsection
     @push('styles')
         <style>
@@ -91,6 +97,6 @@
     @push('scripts')
         <script>
             document.getElementById('resetBtn').addEventListener('click', function() {
-                window.location.href = "{{ route('dashboard.categories.index') }}";
+                window.location.href = "{{ route('dashboard.products.index') }}";
             });
         </script>

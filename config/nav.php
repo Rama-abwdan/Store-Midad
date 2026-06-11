@@ -12,4 +12,14 @@ return [
         'route' => 'dashboard.categories.index',
         'badge' => 'New',
     ],
+    [
+        'title'=>'Stores',
+        'icon'=>'nav-icon fas fa-store',
+        'route'=>'dashboard.stores.index',
+        ],
+        [
+        'title'=>'Products',
+        'icon'=>'nav-icon fas fa-box',
+        'route'=>'dashboard.products.index'
+        ]
 ];

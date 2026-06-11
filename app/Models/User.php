@@ -50,4 +50,7 @@ class User extends Authenticatable
     public function profile(){
         return $this->hasOne(Profile::class,'user_id','id');
     }
+    public function store(){
+        return $this->hasMany(Store::class,'store_id','id');
+    }
 }
