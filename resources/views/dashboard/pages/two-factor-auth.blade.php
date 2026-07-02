@@ -38,7 +38,22 @@
                         <div class="mb-3">
                             {!! $user->twoFactorQrCodeSvg() !!}
                         </div>
+                        <div class="col-md-6">
+                            <h5>Recovery Codes</h5>
+                            <p>Keep these recovery codes in a safe place. You can use them to access your account if you lose access to your authentication app.</p>
+                            <ul class="list-group mb-3">
+                                @foreach ($user->recoveryCodes() as $code)
+                                <li class="list-group-item">{{ $code }}</li>
+                                @endforeach 
+                            </ul>
+                        </div>
                     </div>
+                    <hr>
+                    <form action="{{ route('two-factor.disable') }}" method="Post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Disable Two-Factor Authentication</button>
+                    </form>
                 </div>
                 @endif
             </div>

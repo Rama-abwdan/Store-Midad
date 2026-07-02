@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\ProductsController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Dashboard\StoresController;
 use \App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\UserController as ControllersUserController;
 
 Route::group(['prefix'=>'admin/dashboard','as'=>'dashboard.','middleware'=>['auth:admin']], function () {
     Route::get("/index", [DashboardController::class, "index"])->name("index");
@@ -16,7 +17,7 @@ Route::group(['prefix'=>'admin/dashboard','as'=>'dashboard.','middleware'=>['aut
     Route::put('/categories/update/{id}', [DashboardCategoriesController::class, 'update'])->name('categories.update');
 Route::resource('stores',StoresController::class);
 Route::resource('products',ProductsController::class)->except(['show']);
-Route::resource('users',UserController::class)->except(['show']);
+Route::resource('users',\App\Http\Controllers\UserController::class)->except(['show']);
 Route::get('/2fa', [\App\Http\Controllers\Dashboard\TwoFactorAuthicationController::class, 'index'])->name('admin.2fa');
 
 
