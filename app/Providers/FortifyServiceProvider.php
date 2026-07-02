@@ -26,7 +26,7 @@ class FortifyServiceProvider extends ServiceProvider
         if($request->is('admin/*')){
             Config::set('fortify.guard', 'admin');
             Config::set('fortify.passwords', 'admins');
-            Config::set('fortify.home', '/admin/dashboard/index');
+            Config::set('fortify.home', 'admin/dashboard/index');
             Config::set('fortify.prefix', '/admin');
         }
     }
@@ -59,5 +59,10 @@ class FortifyServiceProvider extends ServiceProvider
                 ($credentialId ?: $request->session()->getId()).'|'.$request->ip()
             );
         });
+        if(Config::get('fortify.guard') == 'admin'){
+            Fortify::viewPrefix('auth.');
+        }else{
+            Fortify::viewPrefix('front.auth.');
+        }
     }
 }
