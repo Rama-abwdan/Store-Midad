@@ -12,6 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         //
+        $middleware->alias(['user.has.store'=>\App\Http\Middleware\EnsureUserHasStore::class]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

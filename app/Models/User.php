@@ -51,6 +51,10 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class,'user_id','id');
     }
     public function store(){
-        return $this->hasMany(Store::class,'store_id','id');
+        return $this->belongsTo(Store::class,'store_id','id');
+    }
+
+    public function hasStore(){
+        return $this->store_id !== null;
     }
 }
