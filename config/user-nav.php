@@ -10,6 +10,11 @@ return [
         'icon' => 'nav-icon fas fa-store',
         'route' => 'user.store.edit',
         'middleware' => ['user.has.store']
+    ],[
+        'title' => 'Products',
+        'icon' => 'nav-icon fas fa-box',
+        'route' => 'user.products.index',
+        
     ]
     
 ];

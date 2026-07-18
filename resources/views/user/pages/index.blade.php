@@ -2,6 +2,18 @@
 @section('title', 'Dashboard')
 
 @section('content')
+<x-flash-message />
+@if (!$user->hasStore())
+
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Welcome, {{ $user->name }}</h3>
+        </div>
+        <div class="card-body">
+            <p>You don't have a store yet. <a href="{{ route('user.store.create') }}">Create one now</a>.</p>
+        </div>
+    </div>
+    @else
     <div class="container-fluid">
         <div class="row">
             <!-- ./col -->
@@ -56,4 +68,6 @@
                 </div>
             </div>
         </div><!-- /.container-fluid -->
+@endif
+    
     @endsection

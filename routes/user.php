@@ -13,5 +13,6 @@ Route::post('/store/store',[StoreController::class,'store'])->name('store.store'
     Route::group(['middleware'=>['user.has.store']], function () {
         Route::get('/store/edit',[StoreController::class,'edit'])->name('store.edit');
         Route::post('/store/update',[StoreController::class,'update'])->name('store.update');
+        Route::resource('products', \App\Http\Controllers\User\ProductController::class);
     });
 });
