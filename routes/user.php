@@ -5,9 +5,11 @@ use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\StoreController;
 use App\Http\Controllers\User\ProductController;
 use App\Http\Controllers\User\TeamController;
+use App\Http\Controllers\User\TwoFactoreAuthenticationController;
 Route::group(['prefix'=>'user','as'=>'user.','middleware'=>['auth:web']], function () {
 
 Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard");
+Route::get("/2fa", [TwoFactoreAuthenticationController::class, "index"])->name("2fa");
 Route::get('/store/create',[StoreController::class,'create'])->name('store.create');
 Route::post('/store/store',[StoreController::class,'store'])->name('store.store');
 

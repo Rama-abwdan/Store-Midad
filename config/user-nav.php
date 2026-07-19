@@ -19,6 +19,10 @@ return [
         'title' => 'Team',
         'icon' => 'nav-icon fas fa-users',
         'route' => 'user.teams.index'
+    ],[
+        'title' => 'Two Factor Auth',
+        'icon' => 'nav-icon fas fa-shield-alt',
+        'route' => 'user.2fa'
     ]
     
 ];

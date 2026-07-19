@@ -69,7 +69,7 @@ class TeamController extends Controller
     }
 
     private function authorizeMember(User $member){
-        if($member->store_id != Auth::user()->store->id){
+        if($member->store_id !== Auth::user()->store->id){
             abort(403);
         }
     }
