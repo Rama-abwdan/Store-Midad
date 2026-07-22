@@ -12,7 +12,20 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         //
-        $middleware->alias(['user.has.store'=>\App\Http\Middleware\EnsureUserHasStore::class]);
+        $middleware->web(\App\Http\Middleware\SetLocaleFromSession::class);
+
+        $middleware->alias([
+            'user.has.store'=>\App\Http\Middleware\EnsureUserHasStore::class,
+            'set.locale' => \App\Http\Middleware\SetLocaleFromSession::class,
+
+            'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
+            'localizationRedirect'    => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
+            'localeSessionRedirect'   => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
+            'localeCookieRedirect'    => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
+            'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
+        ]);
+
+        
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
