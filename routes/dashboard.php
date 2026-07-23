@@ -15,11 +15,14 @@ Route::group(['prefix'=>'admin/dashboard','as'=>'dashboard.','middleware'=>['aut
     Route::get('/categories/edit/{id}', [DashboardCategoriesController::class, 'edit'])->name('categories.edit');
     Route::delete('/categories/delete/{id}', [DashboardCategoriesController::class, 'destroy'])->name('categories.destroy');
     Route::put('/categories/update/{id}', [DashboardCategoriesController::class, 'update'])->name('categories.update');
+    Route::match(['post','put'],'/translate/{group}/{field}',[\App\Http\Controllers\Dashboard\TranslationController::class,'translate'])->name('translations.translate')->where(['group'=>'[a-z_]+','field'=>'[a-z_]+']);
 Route::resource('stores',StoresController::class);
 Route::resource('products',ProductsController::class)->except(['show']);
 Route::resource('users',\App\Http\Controllers\UserController::class)->except(['show']);
 Route::get('/2fa', [\App\Http\Controllers\Dashboard\TwoFactorAuthicationController::class, 'index'])->name('admin.2fa');
-
+Route::post('/translations/update/{group}/{field}', [\App\Http\Controllers\Dashboard\TranslationController::class, 'update'])->name('translations.update')->where(['group'=>'[a-z_]+','field'=>'[a-z_]+']);
+    
+    Route::post('/translations/destroy/{group}/{field}', [\App\Http\Controllers\Dashboard\TranslationController::class, 'destroy'])->name('translations.destroy')->where(['group'=>'[a-z_]+','field'=>'[a-z_]+']);
 
 });
 //Route::resource('categories',[CategoriesController::class])->except(['show']);

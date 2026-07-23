@@ -29,7 +29,7 @@
                 <!-- form start -->
                 <form action="{{ route('dashboard.categories.store') }}" method="post">
                     @csrf
-                    @include('dashboard.pages.categories._form')
+                    @include('dashboard.pages.categories._form',['translations'=>$translations ?? []])
                     
                     
                 </div>

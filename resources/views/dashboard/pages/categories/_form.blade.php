@@ -1,3 +1,7 @@
+@php
+    $translations = $translations ?? ['name'=>[],'description'=>[]];
+@endphp
+
 <div class="card-body">
                 <div class="form-group">
                     {{-- <label for="exampleInputEmail1">Category Name:</label>
@@ -9,16 +13,28 @@
                         <p class="text-danger">{{ $message }}</p>
                     @enderror --}}
                     <x-form.input id="name" name="name" type="text" placeholder="Enter category Name" label="Enter Category Name" :value="$category->name"/> 
-                        {{-- او بكتب بدال ال :value 
-                        value = "{{ $category->name }}"
-                        --}}
+                        
+                        <x-auto-translate
+                        group="categories"
+                        field="name"
+                        label="ترجمات الاسم"
+                        :translations="$translations['name'] ?? []" 
+                        :multiline="false"
+                        />
                     </div>
                     <div class="form-group">
                     <label for="exampleInputPassword1">Description:</label>
-                    <textarea name="description" id="" class="from-control" cols="70" rows="10">{{ old('name',$category->description) }}</textarea>
+                    <textarea name="description" id="" class="from-control" cols="70" rows="10">{{ old('description',$category->description) }}</textarea>
                     @if ($errors->has('description'))
                         <p class="text-danger">{{ $errors->first('description') }}</p>
                     @endif
+                    <x-auto-translate
+                        group="categories"
+                        field="description"
+                        label="ترجمات الوصف"
+                        :translations="$translations['description'] ?? []"
+                        :multiline="false"
+                        />
                     </div>
 
                     <x-form.select
