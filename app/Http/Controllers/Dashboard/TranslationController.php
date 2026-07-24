@@ -267,13 +267,8 @@ class TranslationController extends Controller
 
     protected function getModelClass(string $group): ?string
     {
-        /* $class = config("translation.groups.{$group}");
+        $class = config("translation.groups.{$group}");
 
-        return is_string($class) ? $class : null; */
-        return match ($group) {
-            'categories' => \App\Models\Category::class,
-            
-            default => null,
-        };
+        return is_string($class) ? $class : null;
     }
 }

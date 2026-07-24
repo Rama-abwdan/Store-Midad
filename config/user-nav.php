@@ -4,7 +4,7 @@ return [
     [
         'title' => 'Dashboard',
         'icon' => 'nav-icon fas fa-tachometer-alt',
-        'route' => 'user.dashboard'
+        'route' => 'user.dashboard',
     ],[
         'title' => 'Store',
         'icon' => 'nav-icon fas fa-store',
@@ -23,6 +23,11 @@ return [
         'title' => 'Two Factor Auth',
         'icon' => 'nav-icon fas fa-shield-alt',
         'route' => 'user.2fa'
-    ]
+    ], [
+        'title' => 'Profile',
+        'icon' => 'nav-icon fas fa-user',
+        'route' => 'user.profile.edit'
+    ],
+
     
 ];

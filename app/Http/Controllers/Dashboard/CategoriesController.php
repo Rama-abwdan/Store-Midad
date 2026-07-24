@@ -26,10 +26,7 @@ class CategoriesController extends Controller
         $category = new Category();
         return view("dashboard.pages.categories.create",[
             'category'=>$category,
-            'translations'=>[
-                'name'=>session('name_translation', []),
-                'description'=>session('description_translation', []),
-            ]
+            
         ]);
 }
     public function store(Request $request){   
@@ -59,10 +56,7 @@ class CategoriesController extends Controller
     public function edit($id){
         $category = Category::find($id);
         return view('dashboard.pages.categories.edit',['category'=>$category,
-        'translations'=>[
-            'name'=>session('name_translation', $category->translationsForText($category->name),),
-            'description'=>session('description_translation', $category->translationsForText($category->description),)
-        ],]);
+        ]);
     }
     public function update(Request $request,$id){ 
         $category = Category::find($id);
@@ -72,10 +66,10 @@ class CategoriesController extends Controller
         $category->description = $request->description;
         $category->status = $request->status;
         $category->save();
-        if($oldName!= $category->name){
+        if($oldName !== $category->name){
             $category->renameTranslationKey($oldName, $category->name);
         }
-        if($oldDescription!= $category->description){
+        if($oldDescription !== $category->description){
             $category->renameTranslationKey($oldDescription, $category->description);
         }
         return redirect('dashboard/categories/index');

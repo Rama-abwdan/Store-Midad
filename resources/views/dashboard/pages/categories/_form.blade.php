@@ -1,6 +1,4 @@
-@php
-    $translations = $translations ?? ['name'=>[],'description'=>[]];
-@endphp
+
 
 <div class="card-body">
                 <div class="form-group">
@@ -14,13 +12,7 @@
                     @enderror --}}
                     <x-form.input id="name" name="name" type="text" placeholder="Enter category Name" label="Enter Category Name" :value="$category->name"/> 
                         
-                        <x-auto-translate
-                        group="categories"
-                        field="name"
-                        label="ترجمات الاسم"
-                        :translations="$translations['name'] ?? []" 
-                        :multiline="false"
-                        />
+                        <x-auto-translate group="categories" field="name" :model="$category" />
                     </div>
                     <div class="form-group">
                     <label for="exampleInputPassword1">Description:</label>
@@ -28,13 +20,7 @@
                     @if ($errors->has('description'))
                         <p class="text-danger">{{ $errors->first('description') }}</p>
                     @endif
-                    <x-auto-translate
-                        group="categories"
-                        field="description"
-                        label="ترجمات الوصف"
-                        :translations="$translations['description'] ?? []"
-                        :multiline="false"
-                        />
+                    <x-auto-translate group="categories" field="description" :model="$category" />
                     </div>
 
                     <x-form.select

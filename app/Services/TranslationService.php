@@ -6,22 +6,26 @@ use Illuminate\Support\Facades\Cache;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
 /**
- * خدمة الترجمة الآلية عبر Google Translate (مكتبة Stichoza).
+ * خدمة الترجمة التلقائية عبر Google Translate (مكتبة Stichoza).
  *
- * لا تحتاج API Key - تستخدم الترجمة المجانية المقدمة.
- * يتم تخزين النتائج في Cache لمدة 30 يوماً لتسريع الترجمات المكررة.
+ * لا تحتاج API Key — تستخدم الترجمة المجانية مباشرة.
+ * النتائج تُخزَّن في Cache لمدة 30 يوماً لتسريع الترجمات المتكررة.
  *
  * @example
  * // $service = app(TranslationService::class);
  * // $service->translate('ملابس', 'en');  // => "Clothes"
- * // $service->translate('ملابس', 'tr');  // => "Giysim"
+ * // $service->translate('ملابس', 'tr');  // => "Giyim"
  */
 class TranslationService
 {
     protected GoogleTranslate $translator;
 
     /**
-     * عند إنشاء الخدمة نقوم بتهيئة Google Translate.
+     * تهيئة مكتبة Google Translate عند إنشاء الخدمة.
+     *
+     * @example
+     * // يُستدعى تلقائياً عند أول استخدام:
+     * // app(TranslationService::class);
      */
     public function __construct()
     {
@@ -31,30 +35,25 @@ class TranslationService
     /**
      * ترجمة نص من لغة مصدر إلى لغة هدف.
      *
-     * @param string $text     النص المراد ترجمته (عادةً عربي)
-     * @param string $targetLang اللغة المطلوبة (en, tr)
-     * @param string $sourceLang اللغة الأصلية (افتراضياً: ar)
+     * @param  string  $text  النص المراد ترجمته (عادةً عربي)
+     * @param  string  $targetLang  اللغة المطلوبة (en, tr)
+     * @param  string  $sourceLang  اللغة الأصلية (افتراضي: ar)
      *
      * @example
-     * // translate('الإلكترونيات', 'en', 'ar') => "Electronics"
-     * // translate('الإلكترونيات', 'ar', 'ar') => (نفس اللغة) "الإلكترونيات"
-     * // translate('', 'en')                   => (نص فارغ) ""
+     * // translate('إلكترونيات', 'en', 'ar') => "Electronics"
+     * // translate('إلكترونيات', 'ar', 'ar') => "إلكترونيات" (نفس اللغة)
+     * // translate('', 'en')                  => "" (نص فارغ)
      */
     public function translate(string $text, string $targetLang, string $sourceLang = 'ar'): ?string
     {
         $text = trim($text);
 
-        // إذا كان النص فارغاً أو اللغة المصدر نفس اللغة الهدف، لا داعي للترجمة
         if ($text === '' || $sourceLang === $targetLang) {
             return $text;
         }
-
-        $this->translator->setOptions(['verify' => false]);//***********انا ض Rama Abodan */
-
-        // إنشاء مفتاح فريد للتخزين المؤقت (Cache) بناءً على النص واللغات
+        $this->translator->setOptions(['verify' => false]);
         $cacheKey = 'trans:' . md5($text . $sourceLang . $targetLang);
 
-        // تخزين النتيجة في الكاش لمدة 30 يومًا، أو إرجاعها إذا كانت موجودة مسبقاً
         return Cache::remember($cacheKey, now()->addDays(30), function () use ($text, $targetLang, $sourceLang) {
             $this->translator->setSource($sourceLang);
             $this->translator->setTarget($targetLang);

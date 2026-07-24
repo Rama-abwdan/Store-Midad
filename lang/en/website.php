@@ -7,4 +7,7 @@ return array(
     'logout'=>'Logout',
     'register'=>'Register',
     'home'=>'Home',
+    'all_category'=>'All Categories',
+    'current_password_invalid' => 'Current password is invalid',
+    'current_password_required' => 'Current password is required',
 );

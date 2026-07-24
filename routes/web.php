@@ -6,14 +6,14 @@ use App\Http\Controllers\Front\HomeController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
-//Route::redirect('/','/ar');
-Route::get('switch-language/{locale}', [App\Http\Controllers\Front\LocalController::class, 'switch'])->name('locale.switch');
-
+Route::redirect('/','/ar');
+Route::get('/switch-language/{locale}', [\App\Http\Controllers\Front\LocalController::class, 'switch'])->name('local.switch');
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
-    'middleware' => ['localizationRedirect', 'localeViewPath'],
-], function () {
-    Route::get('/', [HomeController::class, 'index'])->name('home');
+    'middleware' => ['localizationRedirect', 'localeViewPath']
+
+],function(){
+Route::get('/',[HomeController::class,'index'])->name('home');
 });
 
 

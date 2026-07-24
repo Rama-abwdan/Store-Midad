@@ -1,3 +1,4 @@
+
 <div class="mt-2" data-auto-translate="{{ $field }}">
     <p class="small text-muted mb-2">{{ $label }}</p>
 

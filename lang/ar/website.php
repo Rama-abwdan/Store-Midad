@@ -7,4 +7,5 @@ return array(
     'logout'=>'تسجيل الخروج',
     'register'=>'التسجيل',
     'home'=>'الرئيسية',
+    'all_category'=>'جميع الفئات',
 );
